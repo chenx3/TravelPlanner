@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/bottom_wrapper"
+        android:background="#ff0011"
+        android:layout_width="100dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:background="#01c101"
+            android:layout_width="50dp"
+            android:id="@+id/edit_trip"
+            android:text="Edit"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:background="#ff0011"
+            android:layout_width="50dp"
+            android:id="@+id/delete_trip"
+            android:text="Delete"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/travel">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Title"
+                    android:textColor="#ffffff" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</com.daimajia.swipe.SwipeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#038b44</color>
+    <color name="colorPrimaryDark">#004320</color>
+    <color name="colorAccent">#567861</color>
+
+    <color name="restaurant">#F44336</color>
+    <color name="plane">#9C27B0</color>
+    <color name="train">#2196F3</color>
+    <color name="attraction">#038b44</color>
+    <color name="hotel">#00BCD4</color>
+    <color name="others">#FFEB3B</color>
+    <color name="transport">#795548</color>
+</resources>
