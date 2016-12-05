@@ -143,7 +143,7 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
                 intentShowEdit.putExtra(PLAN_TO_EDIT,plans.get(holder.getAdapterPosition()));
                 intentShowEdit.putExtra(POSITION_TO_EDIT,holder.getAdapterPosition());
                 intentShowEdit.putExtra(PLAN_ID,plans.get(holder.getAdapterPosition()).getId());
-                ((Activity)context).startActivityForResult(intentShowEdit, REQUEST_CODE_EDIT_PLAN);
+                ((TripDetail)context).currentFragment.startActivityForResult(intentShowEdit, REQUEST_CODE_EDIT_PLAN);
             }
         });
         holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
