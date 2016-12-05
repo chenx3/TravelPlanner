@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chenx2.travelplanner.AddPlanActivity;
 import com.example.chenx2.travelplanner.AddTripActivity;
@@ -24,6 +25,10 @@ import com.example.chenx2.travelplanner.TripDetail;
 import com.example.chenx2.travelplanner.Util;
 import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
 import com.example.chenx2.travelplanner.data.Plan;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import org.w3c.dom.Text;
 
@@ -36,16 +41,16 @@ public class AttractionFragment extends Fragment {
     private TextView pick_time;
     private TextView pick_day;
     private EditText name;
-    private EditText address;
     private ImageView icon;
     private Button button;
+    private PlaceAutocompleteFragment autocompleteFragment;
     private Date date;
     private String type;
     public static final String TIME = "TIME";
     public static final String DAY = "DAY";
     public static final String TAG = "AttractionFragment";
     public Plan plan;
-
+    public String address;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +58,7 @@ public class AttractionFragment extends Fragment {
         type = ((AddPlanActivity) getActivity()).type;
         button = (Button) root.findViewById(R.id.attraction_save);
         name = (EditText) root.findViewById(R.id.attraction_name);
-        address = (EditText) root.findViewById(R.id.attraction_location);
+        setupAddress();
         pick_time = (TextView) root.findViewById(R.id.attraction_pick_time);
         icon = (ImageView) root.findViewById(R.id.attraction_layout_icon);
         setupIcon();
@@ -67,10 +72,26 @@ public class AttractionFragment extends Fragment {
         return root;
     }
 
+    private void setupAddress() {
+        autocompleteFragment  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        autocompleteFragment.setHint("Pick a Place");
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                address = place.getName().toString();
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+    }
+
     private void fillUI() {
         name.setText(plan.getName());
         if (plan.getAddress() != null) {
-            address.setText(plan.getAddress());
+            autocompleteFragment.setText(plan.getAddress());
         }
         plan.getStartTime().setMonth(plan.getStartTime().getMonth() - 1);
         pick_time.setText(plan.getStartTime().getHours() + ":" + Util.formatMinute(plan.getStartTime().getMinutes()));
@@ -91,7 +112,7 @@ public class AttractionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 plan = new Plan();
-                plan.setStartLocation(address.getText().toString());
+                plan.setAddress(address);
                 if (name == null || name.getText().toString().compareTo("") == 0) {
                     name.setError("Name cannot be empty");
                     return;
@@ -147,10 +168,10 @@ public class AttractionFragment extends Fragment {
     }
 
     public void onDateSelected(int year, int month, int day, String type) {
-        month = month + 1;
         date.setMonth(month);
         date.setYear(year - 1900);
         date.setDate(day);
+        month += 1;
         if (type.compareTo("START") == 0) {
             pick_day.setText(day + "/" + month + "/" + year);
         }

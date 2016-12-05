@@ -1,5 +1,6 @@
 package com.example.chenx2.travelplanner;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,9 +13,13 @@ import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
 import com.example.chenx2.travelplanner.fragment.AttractionFragment;
 import com.example.chenx2.travelplanner.fragment.HotelFragment;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Places;
 
 
-public class AddPlanActivity extends AppCompatActivity implements OnMessageFragmentAnswer {
+public class AddPlanActivity extends AppCompatActivity implements OnMessageFragmentAnswer ,GoogleApiClient.OnConnectionFailedListener {
+    private GoogleApiClient mGoogleApiClient;
     public static final int EDIT = 0;
     public static final int CREATE = 1;
     public Fragment fragment;
@@ -29,7 +34,17 @@ public class AddPlanActivity extends AppCompatActivity implements OnMessageFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plan);
-        FragmentManager fm = getSupportFragmentManager();
+        retrieveVariable();
+        setupFragment();
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
+    }
+
+    private void retrieveVariable() {
         if (getIntent() != null
                 && getIntent().hasExtra(PlanListAdapter.PLAN_TO_EDIT)) {
             plan = (Plan) getIntent().getSerializableExtra(PlanListAdapter.PLAN_TO_EDIT);
@@ -44,6 +59,10 @@ public class AddPlanActivity extends AppCompatActivity implements OnMessageFragm
             trip.setId(id);
             intent = CREATE;
         }
+    }
+
+    private void setupFragment() {
+        FragmentManager fm = getSupportFragmentManager();
         fragment = fm.findFragmentByTag(HotelFragment.TAG);
         if (fragment == null) {
             FragmentTransaction ft = fm.beginTransaction();
@@ -85,6 +104,11 @@ public class AddPlanActivity extends AppCompatActivity implements OnMessageFragm
             HotelFragment fragment = (HotelFragment) getSupportFragmentManager().findFragmentByTag(tag);
             fragment.onTimeSelected(hourOfDay, minute, type);
         }
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 }

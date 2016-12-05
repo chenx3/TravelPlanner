@@ -41,6 +41,7 @@ public class TripDetail extends Activity {
     public static final String TRIP = "TRIP";
     public static final String TRIP_ID = "TRIP_ID";
     public static final int REQUEST_CODE_ADD = 1;
+    public long id;
     private Trip trip;
     @BindView(R.id.plan_recycler_list)
     RecyclerView mRecyclerView;
@@ -72,11 +73,10 @@ public class TripDetail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_detail);
         ButterKnife.bind(this);
-        long id = getIntent().getLongExtra("TRIP_OBJECT_ID", 0);
+        id = getIntent().getLongExtra("TRIP_OBJECT_ID", 0);
         trip = (Trip) getIntent().getSerializableExtra("TRIP_OBJECT");
         trip.setId(id);
         setupRecyclerView(trip);
-
     }
 
     public int getRandomColor() {

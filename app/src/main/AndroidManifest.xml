@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.chenx2.travelplanner">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
         <meta-data
             android:name="DATABASE"
             android:value="sugar_example.db" />
         <meta-data
             android:name="VERSION"
-            android:value="3" />
+            android:value="10" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -40,6 +41,9 @@
         <activity android:name=".TripDetail" />
         <activity android:name=".PlanDetail" />
         <activity android:name=".AddPlanActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBKCYIVOI2g6chbhw43Pz8bva2xWialBKg"/>
     </application>
 
 </manifest>

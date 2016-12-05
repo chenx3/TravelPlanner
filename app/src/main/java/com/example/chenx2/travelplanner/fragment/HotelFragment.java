@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chenx2.travelplanner.AddPlanActivity;
 import com.example.chenx2.travelplanner.AddTripActivity;
@@ -23,6 +24,10 @@ import com.example.chenx2.travelplanner.R;
 import com.example.chenx2.travelplanner.Util;
 import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
 import com.example.chenx2.travelplanner.data.Plan;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.nightonke.boommenu.Eases.Linear;
 
 import java.text.SimpleDateFormat;
@@ -40,9 +45,11 @@ public class HotelFragment extends Fragment {
     private String type;
     private Button button;
     private TextInputLayout name;
-    private TextInputLayout departure_address;
-    private TextInputLayout arrival_address;
-    private TextInputLayout address;
+
+    private PlaceAutocompleteFragment departure_address;
+    private PlaceAutocompleteFragment arrival_address;
+    private PlaceAutocompleteFragment address;
+
     private TextInputLayout note;
     private ImageView icon;
     private LinearLayout address_container;
@@ -51,6 +58,10 @@ public class HotelFragment extends Fragment {
     private TextView departure_label;
     private TextView arrival_label;
     private Plan plan;
+    private String departure_address_text;
+    private String arrival_address_text;
+    private String address_text;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,9 +69,6 @@ public class HotelFragment extends Fragment {
         type = ((AddPlanActivity) getActivity()).type;
         button = (Button) root.findViewById(R.id.hotel_save);
         name = (TextInputLayout) root.findViewById(R.id.hotel_name);
-        address = (TextInputLayout) root.findViewById(R.id.hotel_address);
-        departure_address = (TextInputLayout) root.findViewById(R.id.departure_address);
-        arrival_address = (TextInputLayout) root.findViewById(R.id.arrival_address);
         note = (TextInputLayout) root.findViewById(R.id.reference_number);
         icon = (ImageView) root.findViewById(R.id.hotel_icon);
         address_container = (LinearLayout) root.findViewById(R.id.hotel_address_container);
@@ -68,6 +76,7 @@ public class HotelFragment extends Fragment {
         arrival_container = (LinearLayout) root.findViewById(R.id.arrival_address_container);
         departure_label = (TextView) root.findViewById(R.id.departure_time_label);
         arrival_label = (TextView) root.findViewById(R.id.arrival_time_label);
+        setupAutoCompleteView();
         setupIcon();
         setupNote();
         setupAddress();
@@ -83,10 +92,66 @@ public class HotelFragment extends Fragment {
         return root;
     }
 
+    private void setupAutoCompleteView() {
+        setupDepartureAddress();
+        setupArrivalAddress();
+        setupAddressAutoCompleteView();
+    }
+
+    private void setupAddressAutoCompleteView() {
+        address  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.hotel_address_place_picker);
+        address.setHint("Pick a Place");
+        address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                address_text = place.getName().toString();
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+    }
+
+    private void setupArrivalAddress() {
+        arrival_address  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.arrival_address_place_picker);
+        arrival_address.setHint("Pick a Place");
+        arrival_address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                arrival_address_text = place.getName().toString();
+                Toast.makeText(getActivity(), arrival_address_text, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+    }
+
+    private void setupDepartureAddress() {
+        departure_address  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.departure_address_place_picker);
+        departure_address.setHint("Pick a Place");
+        departure_address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                departure_address_text = place.getName().toString();
+                Toast.makeText(getActivity(), departure_address_text, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+    }
+
     private void fillUI() {
         name.getEditText().setText(plan.getName());
         if (plan.getAddress() != null) {
-            address.getEditText().setText(plan.getAddress());
+            address.setText(plan.getAddress());
         }
         plan.getStartTime().setMonth(plan.getStartTime().getMonth() - 1);
         pick_time.setText(plan.getStartTime().getHours() + ":" + Util.formatMinute(plan.getStartTime().getMinutes()));
@@ -99,8 +164,8 @@ public class HotelFragment extends Fragment {
         endDate = plan.getEndTime();
 
         note.getEditText().setText(plan.getNotes());
-        departure_address.getEditText().setText(plan.getStartLocation());
-        arrival_address.getEditText().setText(plan.getEndLocation());
+        departure_address.setText(plan.getStartLocation());
+        arrival_address.setText(plan.getEndLocation());
     }
 
     private void setupLabel() {
@@ -150,10 +215,11 @@ public class HotelFragment extends Fragment {
             public void onClick(View v) {
                 Plan plan = new Plan();
                 if (type.compareTo("Hotel") == 0) {
-                    plan.setStartLocation(address.getEditText().getText().toString());
+                    plan.setStartLocation(address_text);
                 } else {
-                    plan.setStartLocation(departure_address.getEditText().getText().toString());
-                    plan.setEndLocation(arrival_address.getEditText().getText().toString());
+                    plan.setStartLocation(departure_address_text);
+                    Toast.makeText(getActivity(), departure_address_text, Toast.LENGTH_SHORT).show();
+                    plan.setEndLocation(arrival_address_text);
                 }
                 if (name == null || name.getEditText().getText().toString().compareTo("") == 0) {
                     name.setError("Name cannot be empty");
@@ -238,16 +304,17 @@ public class HotelFragment extends Fragment {
     }
 
     public void onDateSelected(int year, int month, int day, String type) {
-        month+=1;
         if (type.compareTo("START") == 0) {
             date.setMonth(month);
             date.setYear(year-1900);
             date.setDate(day);
+            month += 1;
             pick_day.setText(day + "/" + month + "/" + year);
         } else {
             endDate.setMonth(month);
             endDate.setYear(year-1900);
             endDate.setDate(day);
+            month += 1;
             pick_end_day.setText(day + "/" + month + "/" + year);
         }
     }

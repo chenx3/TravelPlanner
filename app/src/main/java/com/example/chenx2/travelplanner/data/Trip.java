@@ -47,7 +47,6 @@ public class Trip extends SugarRecord implements Serializable {
     private String title;
     private List<Checklist> checklists;
     private List<Plan> plans;
-
     public void orderByTime() {
         Collections.sort(plans, new Comparator<Plan>() {
             public int compare(Plan c1, Plan c2) {
@@ -63,19 +62,10 @@ public class Trip extends SugarRecord implements Serializable {
             return true;
         }
         this.plans = getPlans();
-        if (index == this.plans.size() - 1) {
-            if (plans.get(index - 1).getStartTime().getDate() < plans.get(index).getStartTime().getDate() && plans.get(index - 1).getStartTime().getMonth() <= plans.get(index).getStartTime().getMonth()) {
-                return true;
-            } else {
-                return false;
-            }
+        if (plans.get(index).getStartTime().getDay() ==plans.get(index-1).getStartTime().getDay()&& plans.get(index).getStartTime().getMonth() ==plans.get(index-1).getStartTime().getMonth() &&plans.get(index).getStartTime().getYear() ==plans.get(index-1).getStartTime().getYear() ){
+            return false;
         }
-        if (plans.get(index + 1).getStartTime().getDate() >= plans.get(index).getStartTime().getDate() && plans.get(index + 1).getStartTime().getMonth() >= plans.get(index).getStartTime().getMonth()) {
-            if ((plans.get(index - 1).getStartTime().getMonth() < plans.get(index).getStartTime().getMonth()) || (plans.get(index - 1).getStartTime().getDate() < plans.get(index).getStartTime().getDate() && plans.get(index - 1).getStartTime().getMonth() <= plans.get(index).getStartTime().getMonth())) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 }
 

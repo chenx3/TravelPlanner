@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.chenx2.travelplanner.adapter.TripListAdapter;
+import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
 
 

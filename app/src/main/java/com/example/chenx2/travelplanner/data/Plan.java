@@ -31,7 +31,7 @@ public class Plan extends SugarRecord implements Serializable {
 
     }
 
-    public Plan(String name, String address, Date startTime, Date endTime, String notes, double expenses, String type, String endLocation, String startLocation) {
+    public Plan(String name, String address, Date startTime, Date endTime, String notes, double expenses, String type, String endLocation, String startLocation,String header) {
         this.name = name;
         this.address = address;
         this.startTime = startTime;

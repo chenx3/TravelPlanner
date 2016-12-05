@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.example.chenx2.travelplanner.data.Plan;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 

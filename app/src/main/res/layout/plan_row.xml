@@ -109,15 +109,13 @@
                             android:id="@+id/tvEndLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="Start Place" />
+                            android:layout_alignParentRight="true" />
 
                         <TextView
                             android:id="@+id/tvStartLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:text="End Place" />
+                            android:layout_alignParentLeft="true" />
                     </RelativeLayout>
                 </LinearLayout>
 
