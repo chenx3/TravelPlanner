@@ -17,7 +17,7 @@
             android:value="sugar_example.db" />
         <meta-data
             android:name="VERSION"
-            android:value="10" />
+            android:value="12" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -38,8 +38,8 @@
         <activity
             android:name=".AddTripActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-        <activity android:name=".TripDetail" />
-        <activity android:name=".PlanDetail" />
+        <activity android:name=".TripDetail" android:theme="@style/ViewPagerTheme"/>
+        <activity android:name=".PlanDetail"  />
         <activity android:name=".AddPlanActivity"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
