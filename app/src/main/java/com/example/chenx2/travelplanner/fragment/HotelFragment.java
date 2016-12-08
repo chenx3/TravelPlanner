@@ -28,9 +28,11 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
 import com.nightonke.boommenu.Eases.Linear;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,6 +47,9 @@ public class HotelFragment extends Fragment {
     private String type;
     private Button button;
     private TextInputLayout name;
+    private LatLng startCoordinate;
+    private LatLng address_coordinate;
+
 
     private PlaceAutocompleteFragment departure_address;
     private PlaceAutocompleteFragment arrival_address;
@@ -105,6 +110,7 @@ public class HotelFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 address_text = place.getName().toString();
+                startCoordinate = place.getLatLng();
             }
 
             @Override
@@ -121,7 +127,6 @@ public class HotelFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 arrival_address_text = place.getName().toString();
-                Toast.makeText(getActivity(), arrival_address_text, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -138,7 +143,7 @@ public class HotelFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 departure_address_text = place.getName().toString();
-                Toast.makeText(getActivity(), departure_address_text, Toast.LENGTH_SHORT).show();
+                startCoordinate = place.getLatLng();
             }
 
             @Override
@@ -209,16 +214,20 @@ public class HotelFragment extends Fragment {
         }
     }
 
+
     private void setupButton() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Plan plan = new Plan();
+                if(startCoordinate != null) {
+                    plan.setLongitude(startCoordinate.longitude);
+                    plan.setLatitude(startCoordinate.latitude);
+                }
                 if (type.compareTo("Hotel") == 0) {
                     plan.setStartLocation(address_text);
                 } else {
                     plan.setStartLocation(departure_address_text);
-                    Toast.makeText(getActivity(), departure_address_text, Toast.LENGTH_SHORT).show();
                     plan.setEndLocation(arrival_address_text);
                 }
                 if (name == null || name.getEditText().getText().toString().compareTo("") == 0) {

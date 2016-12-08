@@ -141,8 +141,6 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
 
                 }
 
-                //execute others actions if needed (ex : modify your header logo)
-
                 return null;
             }
         });

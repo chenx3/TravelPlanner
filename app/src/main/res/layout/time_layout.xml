@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:textSize="20dp"
+                android:textSize="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -70,12 +70,12 @@
         <LinearLayout
             android:padding="10dp"
             android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:textSize="20dp"
+                android:textSize="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

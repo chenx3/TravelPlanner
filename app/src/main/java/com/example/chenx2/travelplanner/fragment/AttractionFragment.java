@@ -29,10 +29,12 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -51,6 +53,7 @@ public class AttractionFragment extends Fragment {
     public static final String TAG = "AttractionFragment";
     public Plan plan;
     public String address;
+    public LatLng coordinate;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,6 +82,7 @@ public class AttractionFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 address = place.getName().toString();
+                coordinate = place.getLatLng();
             }
 
             @Override
@@ -113,6 +117,10 @@ public class AttractionFragment extends Fragment {
             public void onClick(View v) {
                 plan = new Plan();
                 plan.setAddress(address);
+                if(coordinate != null){
+                    plan.setLongitude(coordinate.longitude);
+                    plan.setLatitude(coordinate.latitude);
+                }
                 if (name == null || name.getText().toString().compareTo("") == 0) {
                     name.setError("Name cannot be empty");
                     return;

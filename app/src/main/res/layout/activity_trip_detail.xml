@@ -11,18 +11,16 @@
         app:viewpager_color="@color/colorPrimary"
         app:viewpager_disableToolbar="false"
         app:viewpager_displayToolbarWhenSwipe="true"
-        app:viewpager_imageHeaderDarkLayerAlpha="0.3"
         app:viewpager_enableToolbarElevation="true"
         app:viewpager_headerAdditionalHeight="20dp"
         app:viewpager_headerAlpha="1.0"
         app:viewpager_headerHeight="200dp"
         app:viewpager_hideLogoWithFade="false"
         app:viewpager_hideToolbarAndTitle="false"
+        app:viewpager_imageHeaderDarkLayerAlpha="0.2"
         app:viewpager_logo="@layout/header_logo"
         app:viewpager_logoMarginTop="100dp"
         app:viewpager_parallaxHeaderFactor="1.5"
         app:viewpager_transparentToolbar="false"
-
         />
-
 </LinearLayout>
