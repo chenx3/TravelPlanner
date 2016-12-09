@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 import com.example.chenx2.travelplanner.AddPlanActivity;
 import com.example.chenx2.travelplanner.AddTripActivity;
+import com.example.chenx2.travelplanner.MessageEvent;
 import com.example.chenx2.travelplanner.PlanDetail;
 import com.example.chenx2.travelplanner.R;
 import com.example.chenx2.travelplanner.TripDetail;
 import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -51,17 +55,22 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(PlanListAdapter.ViewHolder holder, int position) {
+        if (holder.date_layout.getVisibility() == View.VISIBLE) {
+            holder.date_layout.setVisibility(View.GONE);
+        }
         setupSwipeLayout(holder);
         final int index = holder.getAdapterPosition();
-        if (plans.get(holder.getAdapterPosition()).getType().compareTo("Transport") == 0 || plans.get(holder.getAdapterPosition()).getType().compareTo("Flight") == 0 || plans.get(holder.getAdapterPosition()).getType().compareTo("Train") == 0 ) {
-            if(plans.get(holder.getAdapterPosition()).getStartLocation() == null || plans.get(holder.getAdapterPosition()).getStartLocation().compareTo("") == 0){
+        if (plans.get(holder.getAdapterPosition()).getType().compareTo("Transport") == 0 || plans.get(holder.getAdapterPosition()).getType().compareTo("Flight") == 0 || plans.get(holder.getAdapterPosition()).getType().compareTo("Train") == 0) {
+            if (plans.get(holder.getAdapterPosition()).getStartLocation() == null || plans.get(holder.getAdapterPosition()).getStartLocation().compareTo("") == 0) {
                 holder.tvEndLocation.setText("Arrival Point");
                 holder.tvStartLocation.setText("Departure Point");
-            }else{
+            } else {
                 holder.tvEndLocation.setText(plans.get(holder.getAdapterPosition()).getEndLocation());
                 holder.tvStartLocation.setText(plans.get(holder.getAdapterPosition()).getStartLocation());
             }
-        }else{
+        } else {
+            holder.tvEndLocation.setText("");
+            holder.tvEndTime.setText("");
             holder.tvStartLocation.setText(plans.get(holder.getAdapterPosition()).getName());
         }
         if (plans.get(holder.getAdapterPosition()).getEndTime() != null) {
@@ -71,9 +80,9 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
         if (plans.get(holder.getAdapterPosition()).getStartTime() != null) {
             String startTime = new SimpleDateFormat("HH:mm").format(plans.get(holder.getAdapterPosition()).getStartTime());
             holder.tvStartTime.setText(startTime);
-            if (trip.checkWhetherFirstPlanInDay(holder.getAdapterPosition())) {
+            if (plans.get(holder.getAdapterPosition()).isFirst()) {
                 holder.date_layout.setVisibility(View.VISIBLE);
-                holder.tvDate.setText(new SimpleDateFormat("dd-M-yyyy").format(plans.get(holder.getAdapterPosition()).getStartTime()));
+                holder.tvDate.setText(new SimpleDateFormat("MM/dd/yyyy").format(plans.get(holder.getAdapterPosition()).getStartTime()));
             }
         }
 
@@ -140,10 +149,10 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
             public void onClick(View v) {
                 Intent intentShowEdit = new Intent();
                 intentShowEdit.setClass(context, AddPlanActivity.class);
-                intentShowEdit.putExtra(PLAN_TO_EDIT,plans.get(holder.getAdapterPosition()));
-                intentShowEdit.putExtra(POSITION_TO_EDIT,holder.getAdapterPosition());
-                intentShowEdit.putExtra(PLAN_ID,plans.get(holder.getAdapterPosition()).getId());
-                ((TripDetail)context).currentFragment.startActivityForResult(intentShowEdit, REQUEST_CODE_EDIT_PLAN);
+                intentShowEdit.putExtra(PLAN_TO_EDIT, plans.get(holder.getAdapterPosition()));
+                intentShowEdit.putExtra(POSITION_TO_EDIT, holder.getAdapterPosition());
+                intentShowEdit.putExtra(PLAN_ID, plans.get(holder.getAdapterPosition()).getId());
+                ((TripDetail) context).currentFragment.startActivityForResult(intentShowEdit, REQUEST_CODE_EDIT_PLAN);
             }
         });
         holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
@@ -186,23 +195,35 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
     public void addItem(Plan plan) {
         plans.add(plan);
         trip.setPlans(plans);
-        trip.orderByTime();
         plans = trip.getPlans();
         notifyDataSetChanged();
+        for (int i = 0; i < plans.size(); i++) {
+            notifyItemChanged(i);
+        }
+        EventBus.getDefault().post(new MessageEvent("Add"));
     }
 
     public void delete(int position) {
         plans.get(position).delete();
-        plans.remove(position);
-        notifyItemRemoved(position);
+        plans = trip.getPlans();
+        notifyDataSetChanged();
+        for (int i = 0; i < plans.size(); i++) {
+            notifyItemChanged(i);
+        }
+        EventBus.getDefault().post(new MessageEvent("Delete"));
     }
 
-    public void editItem(int position, Plan newItem,long id) {
-        plans.set(position,newItem);
+    public void editItem(int position, Plan newItem, long id) {
+        plans.set(position, newItem);
         plans.get(position).setTrip(trip);
         plans.get(position).setId(id);
         plans.get(position).save();
-        notifyItemChanged(position);
+        plans = trip.getPlans();
+        notifyDataSetChanged();
+        for (int i = 0; i < plans.size(); i++) {
+            notifyItemChanged(i);
+        }
+        EventBus.getDefault().post(new MessageEvent("Edit"));
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

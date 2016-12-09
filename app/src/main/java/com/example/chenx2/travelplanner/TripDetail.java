@@ -32,6 +32,7 @@ import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
 import com.example.chenx2.travelplanner.adapter.TripListAdapter;
 import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
+import com.example.chenx2.travelplanner.fragment.ExpenseFragment;
 import com.example.chenx2.travelplanner.fragment.MapFragment;
 import com.example.chenx2.travelplanner.fragment.TripDetailFragment;
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -45,6 +46,8 @@ import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,9 +100,9 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
                     case 1:
                         return new MapFragment();
                     case 2:
-                        return new MapFragment();
+                        return new ExpenseFragment();
                     default:
-                        return new MapFragment();
+                        return new ExpenseFragment();
                 }
             }
 
@@ -148,16 +151,6 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
-        View logo = findViewById(R.id.logo_white);
-        if (logo != null) {
-            logo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mViewPager.notifyHeaderChanged();
-                    Toast.makeText(getApplicationContext(), "Yes, the title is clickable", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 
     private void setupMenu() {
@@ -249,7 +242,6 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
         intentShowAdd.putExtra(TYPE, type);
         currentFragment.startActivityForResult(intentShowAdd, REQUEST_CODE_ADD);
     }
-
 
 }
 

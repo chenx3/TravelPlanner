@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.chenx2.travelplanner.AddPlanActivity;
 import com.example.chenx2.travelplanner.AddTripActivity;
+import com.example.chenx2.travelplanner.MessageEvent;
 import com.example.chenx2.travelplanner.PlanDetail;
 import com.example.chenx2.travelplanner.R;
 import com.example.chenx2.travelplanner.Util;
@@ -31,6 +32,8 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.nightonke.boommenu.Eases.Linear;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,13 +45,13 @@ public class HotelFragment extends Fragment {
     private TextView pick_end_day;
     private TextView pick_end_time;
     private TextView pick_day;
+    private EditText expense;
     private Date date;
     private Date endDate;
     private String type;
     private Button button;
     private TextInputLayout name;
     private LatLng startCoordinate;
-    private LatLng address_coordinate;
 
 
     private PlaceAutocompleteFragment departure_address;
@@ -76,6 +79,7 @@ public class HotelFragment extends Fragment {
         name = (TextInputLayout) root.findViewById(R.id.hotel_name);
         note = (TextInputLayout) root.findViewById(R.id.reference_number);
         icon = (ImageView) root.findViewById(R.id.hotel_icon);
+        expense = (EditText) root.findViewById(R.id.hotel_expense);
         address_container = (LinearLayout) root.findViewById(R.id.hotel_address_container);
         departure_container = (LinearLayout) root.findViewById(R.id.departure_address_container);
         arrival_container = (LinearLayout) root.findViewById(R.id.arrival_address_container);
@@ -104,7 +108,7 @@ public class HotelFragment extends Fragment {
     }
 
     private void setupAddressAutoCompleteView() {
-        address  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.hotel_address_place_picker);
+        address = (PlaceAutocompleteFragment) getActivity().getFragmentManager().findFragmentById(R.id.hotel_address_place_picker);
         address.setHint("Pick a Place");
         address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -121,7 +125,7 @@ public class HotelFragment extends Fragment {
     }
 
     private void setupArrivalAddress() {
-        arrival_address  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.arrival_address_place_picker);
+        arrival_address = (PlaceAutocompleteFragment) getActivity().getFragmentManager().findFragmentById(R.id.arrival_address_place_picker);
         arrival_address.setHint("Pick a Place");
         arrival_address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -137,7 +141,7 @@ public class HotelFragment extends Fragment {
     }
 
     private void setupDepartureAddress() {
-        departure_address  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.departure_address_place_picker);
+        departure_address = (PlaceAutocompleteFragment) getActivity().getFragmentManager().findFragmentById(R.id.departure_address_place_picker);
         departure_address.setHint("Pick a Place");
         departure_address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -158,14 +162,17 @@ public class HotelFragment extends Fragment {
         if (plan.getAddress() != null) {
             address.setText(plan.getAddress());
         }
-        plan.getStartTime().setMonth(plan.getStartTime().getMonth() - 1);
+        if (plan.getExpenses() != 0.0) {
+            expense.setText(String.valueOf(plan.getExpenses()));
+        }
+        plan.getStartTime().setMonth(plan.getStartTime().getMonth());
         pick_time.setText(plan.getStartTime().getHours() + ":" + Util.formatMinute(plan.getStartTime().getMinutes()));
-        pick_day.setText(new SimpleDateFormat("dd/MM/yyyy").format(plan.getStartTime()));
+        pick_day.setText(new SimpleDateFormat("MM/dd/yyyy").format(plan.getStartTime()));
         date = plan.getStartTime();
 
-        plan.getEndTime().setMonth(plan.getEndTime().getMonth() - 1);
+        plan.getEndTime().setMonth(plan.getEndTime().getMonth());
         pick_end_time.setText(plan.getEndTime().getHours() + ":" + Util.formatMinute(plan.getEndTime().getMinutes()));
-        pick_end_day.setText(new SimpleDateFormat("dd/MM/yyyy").format(plan.getEndTime()));
+        pick_end_day.setText(new SimpleDateFormat("MM/dd/yyyy").format(plan.getEndTime()));
         endDate = plan.getEndTime();
 
         note.getEditText().setText(plan.getNotes());
@@ -220,7 +227,7 @@ public class HotelFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Plan plan = new Plan();
-                if(startCoordinate != null) {
+                if (startCoordinate != null) {
                     plan.setLongitude(startCoordinate.longitude);
                     plan.setLatitude(startCoordinate.latitude);
                 }
@@ -235,6 +242,9 @@ public class HotelFragment extends Fragment {
                     return;
                 } else {
                     plan.setName(name.getEditText().getText().toString());
+                }
+                if (expense.getText().toString().compareTo("") != 0) {
+                    plan.setExpenses(Double.parseDouble(expense.getText().toString()));
                 }
                 plan.setStartTime(date);
                 plan.setEndTime(endDate);
@@ -302,29 +312,29 @@ public class HotelFragment extends Fragment {
         Calendar c = Calendar.getInstance();
         date = c.getTime();
         endDate = c.getTime();
-        int month = c.get(Calendar.MONTH)+1;
+        int month = c.get(Calendar.MONTH) + 1;
         pick_time.setText(c.get(Calendar.HOUR_OF_DAY) + ":" + Util.formatMinute(c.get(Calendar.MINUTE)));
         pick_day = (TextView) root.findViewById(R.id.pick_hotel_date);
-        pick_day.setText(c.get(Calendar.DAY_OF_MONTH) + "/" + month + "/" + c.get(Calendar.YEAR));
+        pick_day.setText(month + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR));
         pick_end_time = (TextView) root.findViewById(R.id.hotel_pick_end_time);
         pick_end_time.setText(c.get(Calendar.HOUR_OF_DAY) + ":" + Util.formatMinute(c.get(Calendar.MINUTE)));
         pick_end_day = (TextView) root.findViewById(R.id.hotel_pick_end_day);
-        pick_end_day.setText(c.get(Calendar.DAY_OF_MONTH) + "/" + month + "/" + c.get(Calendar.YEAR));
+        pick_end_day.setText(month + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR));
     }
 
     public void onDateSelected(int year, int month, int day, String type) {
         if (type.compareTo("START") == 0) {
             date.setMonth(month);
-            date.setYear(year-1900);
+            date.setYear(year - 1900);
             date.setDate(day);
             month += 1;
-            pick_day.setText(day + "/" + month + "/" + year);
+            pick_day.setText(month + "/" + day + "/" + year);
         } else {
             endDate.setMonth(month);
-            endDate.setYear(year-1900);
+            endDate.setYear(year - 1900);
             endDate.setDate(day);
             month += 1;
-            pick_end_day.setText(day + "/" + month + "/" + year);
+            pick_end_day.setText(month + "/" + day + "/" + year);
         }
     }
 

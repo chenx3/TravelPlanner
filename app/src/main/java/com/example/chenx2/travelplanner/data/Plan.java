@@ -140,5 +140,14 @@ public class Plan extends SugarRecord implements Serializable {
     private String notes;
     private double expenses;
 
+    public boolean isFirst() {
+        return isFirst;
+    }
+
+    public void setFirst(boolean first) {
+        isFirst = first;
+    }
+
+    private boolean isFirst;
 
 }

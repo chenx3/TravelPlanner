@@ -2,9 +2,6 @@ package com.example.chenx2.travelplanner.data;
 
 import java.util.List;
 
-/**
- * Created by chenx2 on 11/24/2016.
- */
 public class Checklist {
     public Checklist(List<Todo> checklist) {
         this.checklist = checklist;

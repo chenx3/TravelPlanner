@@ -35,7 +35,16 @@ public class Trip extends SugarRecord implements Serializable {
     }
 
     public List<Plan> getPlans() {
-        return Plan.find(Plan.class, "trip = ?", String.valueOf(this.getId()));
+        plans = Plan.find(Plan.class, "trip = ?", String.valueOf(this.getId()));
+        orderByTime();
+        for(int i=0; i<plans.size(); i++) {
+            plans.get(i).setFirst(checkWhetherFirstPlanInDay(i));
+        }
+        for(Plan plan: plans){
+            Log.d("DEBUG",plan.getStartTime().toString());
+            Log.d("DEBUG",String.valueOf(plan.isFirst()));
+        }
+        return plans;
     }
 
     public void setPlans(List<Plan> plans) {
@@ -45,12 +54,11 @@ public class Trip extends SugarRecord implements Serializable {
     private String title;
     private List<Checklist> checklists;
     private List<Plan> plans;
+
     public void orderByTime() {
         Collections.sort(plans, new Comparator<Plan>() {
             public int compare(Plan c1, Plan c2) {
-                if (c1.getStartTime().getTime() < c2.getStartTime().getTime()) return -1;
-                if (c1.getStartTime().getTime() > c2.getStartTime().getTime()) return 1;
-                return 0;
+                return c1.getStartTime().compareTo(c2.getStartTime());
             }
         });
     }
@@ -59,8 +67,7 @@ public class Trip extends SugarRecord implements Serializable {
         if (index == 0) {
             return true;
         }
-        this.plans = getPlans();
-        if (plans.get(index).getStartTime().getDay() ==plans.get(index-1).getStartTime().getDay()&& plans.get(index).getStartTime().getMonth() ==plans.get(index-1).getStartTime().getMonth() &&plans.get(index).getStartTime().getYear() ==plans.get(index-1).getStartTime().getYear() ){
+        if (plans.get(index).getStartTime().getDate() ==plans.get(index-1).getStartTime().getDate()&& plans.get(index).getStartTime().getMonth() ==plans.get(index-1).getStartTime().getMonth() &&plans.get(index).getStartTime().getYear() ==plans.get(index-1).getStartTime().getYear() ){
             return false;
         }
         return true;

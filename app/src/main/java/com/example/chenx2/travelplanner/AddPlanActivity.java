@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
 import com.example.chenx2.travelplanner.adapter.TripListAdapter;
@@ -16,6 +17,8 @@ import com.example.chenx2.travelplanner.fragment.HotelFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class AddPlanActivity extends AppCompatActivity implements OnMessageFragmentAnswer ,GoogleApiClient.OnConnectionFailedListener {
@@ -76,12 +79,6 @@ public class AddPlanActivity extends AppCompatActivity implements OnMessageFragm
             ft.add(android.R.id.content, fragment, tag);
             ft.commit();
         }
-    }
-
-    public void addPlan(Plan plan) {
-        trip.getPlans().add(plan);
-        trip.orderByTime();
-        trip.save();
     }
 
     @Override

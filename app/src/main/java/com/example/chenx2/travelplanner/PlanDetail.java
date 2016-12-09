@@ -67,7 +67,7 @@ public class PlanDetail extends AppCompatActivity {
         }
         if (plan.getStartTime() != null) {
             plan.getStartTime().setMonth(plan.getStartTime().getMonth());
-            plan_time.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").format(plan.getStartTime()));
+            plan_time.setText(new SimpleDateFormat("MM/dd/yyyy HH:mm").format(plan.getStartTime()));
         } else {
             time_container.setVisibility(View.GONE);
         }

@@ -51,4 +51,5 @@ dependencies {
         transitive = true
     }
     compile 'com.yalantis:contextmenu:1.0.7'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

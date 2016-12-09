@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.chenx2.travelplanner.MessageEvent;
 import com.example.chenx2.travelplanner.R;
 import com.example.chenx2.travelplanner.TripDetail;
 import com.example.chenx2.travelplanner.data.Plan;
@@ -22,6 +23,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -65,7 +69,6 @@ public class MapFragment extends Fragment {
                 if (first == null) {
                     first = getCoordinate(plan);
                 }
-                Log.d("DEBUG",getCoordinate(plan).toString());
                 MarkerOptions marker = new MarkerOptions().position(getCoordinate(plan)).title(plan.getName());
                 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                 map.addMarker(marker);
@@ -84,6 +87,28 @@ public class MapFragment extends Fragment {
             return new LatLng( plan.getLatitude(),plan.getLongitude());
         }
         return null;
+    }
+
+    @Subscribe
+    public void onMessageEvent(MessageEvent event) {
+        map.clear();
+        plans = Trip.findById(Trip.class, ((TripDetail) getActivity()).id).getPlans();
+        setupMarker();
+        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
 }

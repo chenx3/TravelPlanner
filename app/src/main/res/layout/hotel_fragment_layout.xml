@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:paddingTop="10dp"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,10 +12,10 @@
 
         <ImageView
             android:id="@+id/hotel_icon"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="5dp"
             android:layout_width="30dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
             android:src="@drawable/black_ic_hotel" />
 
         <LinearLayout
@@ -35,16 +37,19 @@
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/hotel_address_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:text="Address" />
+
         <fragment
             android:id="@+id/hotel_address_place_picker"
             android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
@@ -52,59 +57,66 @@
             android:layout_height="27dp" />
 
     </LinearLayout>
+
     <TextView
-        android:padding="10dp"
+        android:id="@+id/departure_time_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CHECK IN"
-        android:id="@+id/departure_time_label" />
+        android:padding="10dp"
+        android:text="CHECK IN" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/ic_action_clock" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
-                android:paddingLeft="5dp"
-                android:textSize="20dp"
                 android:id="@+id/pick_hotel_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showDatePickerDialog"
+                android:paddingLeft="5dp"
                 android:text="Pick Time"
-                android:onClick="showDatePickerDialog" />
+                android:textSize="20dp" />
+
             <TextView
-                android:paddingLeft="20dp"
-                android:textSize="20dp"
                 android:id="@+id/pick_hotel_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showDatePickerDialog"
+                android:paddingLeft="20dp"
                 android:text="Pick Time"
-                android:onClick="showDatePickerDialog" />
+                android:textSize="20dp" />
 
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/departure_address_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:text="Departure Point" />
+
         <fragment
             android:id="@+id/departure_address_place_picker"
             android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
@@ -114,58 +126,64 @@
     </LinearLayout>
 
     <TextView
-        android:padding="10dp"
+        android:id="@+id/arrival_time_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CHECK OUT"
-        android:id="@+id/arrival_time_label" />
+        android:padding="10dp"
+        android:text="CHECK OUT" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_gravity="center_vertical"
-
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/ic_action_clock" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
-                android:paddingLeft="5dp"
-                android:textSize="20dp"
                 android:id="@+id/hotel_pick_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pick Time" />
+                android:paddingLeft="5dp"
+                android:text="Pick Time"
+                android:textSize="20dp" />
+
             <TextView
-                android:paddingLeft="20dp"
-                android:textSize="20dp"
                 android:id="@+id/hotel_pick_end_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pick Time" />
+                android:paddingLeft="20dp"
+                android:text="Pick Time"
+                android:textSize="20dp" />
 
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/arrival_address_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:text="Arrival Point" />
+
         <fragment
             android:id="@+id/arrival_address_place_picker"
             android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
@@ -173,16 +191,17 @@
             android:layout_height="27dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_gravity="center_vertical"
-
             android:layout_width="30dp"
+
             android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/black_ic_note_add" />
 
         <LinearLayout
@@ -203,11 +222,46 @@
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </LinearLayout>
-    <Button
-        android:id="@+id/hotel_save"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_attach_money" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/hotel_expense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Expense"
+                    android:inputType="numberDecimal" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/hotel_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Save" />
 </LinearLayout>

@@ -43,6 +43,7 @@ public class AttractionFragment extends Fragment {
     private TextView pick_time;
     private TextView pick_day;
     private EditText name;
+    private EditText expense;
     private ImageView icon;
     private Button button;
     private PlaceAutocompleteFragment autocompleteFragment;
@@ -54,6 +55,7 @@ public class AttractionFragment extends Fragment {
     public Plan plan;
     public String address;
     public LatLng coordinate;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class AttractionFragment extends Fragment {
         type = ((AddPlanActivity) getActivity()).type;
         button = (Button) root.findViewById(R.id.attraction_save);
         name = (EditText) root.findViewById(R.id.attraction_name);
+        expense = (EditText) root.findViewById(R.id.attraction_expense);
         setupAddress();
         pick_time = (TextView) root.findViewById(R.id.attraction_pick_time);
         icon = (ImageView) root.findViewById(R.id.attraction_layout_icon);
@@ -76,7 +79,7 @@ public class AttractionFragment extends Fragment {
     }
 
     private void setupAddress() {
-        autocompleteFragment  = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        autocompleteFragment = (PlaceAutocompleteFragment) getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteFragment.setHint("Pick a Place");
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -97,9 +100,12 @@ public class AttractionFragment extends Fragment {
         if (plan.getAddress() != null) {
             autocompleteFragment.setText(plan.getAddress());
         }
-        plan.getStartTime().setMonth(plan.getStartTime().getMonth() - 1);
+        if (plan.getExpenses() != 0.0) {
+            expense.setText(String.valueOf(plan.getExpenses()));
+        }
+        plan.getStartTime().setMonth(plan.getStartTime().getMonth());
         pick_time.setText(plan.getStartTime().getHours() + ":" + Util.formatMinute(plan.getStartTime().getMinutes()));
-        pick_day.setText(new SimpleDateFormat("dd/MM/yyyy").format(plan.getStartTime()));
+        pick_day.setText(new SimpleDateFormat("MM/dd/yyyy").format(plan.getStartTime()));
         date = plan.getStartTime();
     }
 
@@ -117,7 +123,7 @@ public class AttractionFragment extends Fragment {
             public void onClick(View v) {
                 plan = new Plan();
                 plan.setAddress(address);
-                if(coordinate != null){
+                if (coordinate != null) {
                     plan.setLongitude(coordinate.longitude);
                     plan.setLatitude(coordinate.latitude);
                 }
@@ -126,6 +132,9 @@ public class AttractionFragment extends Fragment {
                     return;
                 } else {
                     plan.setName(name.getText().toString());
+                }
+                if (expense.getText().toString().compareTo("") != 0) {
+                    plan.setExpenses(Double.parseDouble(expense.getText().toString()));
                 }
                 plan.setStartTime(date);
                 plan.setType(type);
@@ -172,7 +181,7 @@ public class AttractionFragment extends Fragment {
         int month = c.get(Calendar.MONTH) + 1;
         pick_time.setText(c.get(Calendar.HOUR_OF_DAY) + ":" + Util.formatMinute(c.get(Calendar.MINUTE)));
         pick_day = (TextView) root.findViewById(R.id.attraction_pick_day);
-        pick_day.setText(c.get(Calendar.DAY_OF_MONTH) + "/" + month + "/" + c.get(Calendar.YEAR));
+        pick_day.setText(month + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR));
     }
 
     public void onDateSelected(int year, int month, int day, String type) {
@@ -181,7 +190,7 @@ public class AttractionFragment extends Fragment {
         date.setDate(day);
         month += 1;
         if (type.compareTo("START") == 0) {
-            pick_day.setText(day + "/" + month + "/" + year);
+            pick_day.setText(month + "/" + day + "/" + year);
         }
     }
 
