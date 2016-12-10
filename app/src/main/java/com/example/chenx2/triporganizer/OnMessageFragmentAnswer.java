@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 /**
  * Created by chenx2 on 11/30/2016.

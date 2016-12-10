@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,13 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.chenx2.travelplanner.MessageEvent;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.TripDetail;
-import com.example.chenx2.travelplanner.data.Plan;
-import com.example.chenx2.travelplanner.data.Trip;
+import com.example.chenx2.triporganizer.MessageEvent;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.TripDetail;
+import com.example.chenx2.triporganizer.data.Plan;
+import com.example.chenx2.triporganizer.data.Trip;
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,6 +30,7 @@ public class ExpenseFragment extends Fragment {
     TextView attraction;
     TextView others;
     TextView hotel;
+    private ObservableScrollView mScrollView;
 
     @Nullable
     @Override
@@ -44,6 +46,14 @@ public class ExpenseFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mScrollView = (ObservableScrollView) view.findViewById(R.id.expense_scrollView);
+
+        MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
+    }
+
     private void setupExpense() {
         double restaurant = 0.0;
         double hotel = 0.0;
@@ -52,26 +62,26 @@ public class ExpenseFragment extends Fragment {
         double attraction = 0.0;
         double total = 0.0;
         plans = Trip.findById(Trip.class, ((TripDetail) getActivity()).id).getPlans();
-        for (Plan plan:plans){
+        for (Plan plan : plans) {
             total += plan.getExpenses();
-            if(plan.getType().compareTo("Restaurant") == 0){
+            if (plan.getType().compareTo("Restaurant") == 0) {
                 restaurant += plan.getExpenses();
-            }else if(plan.getType().compareTo("Attraction") == 0){
+            } else if (plan.getType().compareTo("Attraction") == 0) {
                 attraction += plan.getExpenses();
-            }else if(plan.getType().compareTo("Others") == 0){
+            } else if (plan.getType().compareTo("Others") == 0) {
                 others += plan.getExpenses();
-            }else if(plan.getType().compareTo("Hotel") == 0){
+            } else if (plan.getType().compareTo("Hotel") == 0) {
                 hotel += plan.getExpenses();
-            }else{
+            } else {
                 transport += plan.getExpenses();
             }
         }
-        this.restaurant.setText(getString(R.string.USD)+String.valueOf(restaurant));
-        this.total.setText(getString(R.string.USD)+String.valueOf(total));
-        this.others.setText(getString(R.string.USD)+String.valueOf(others));
-        this.transport.setText(getString(R.string.USD)+String.valueOf(transport));
-        this.attraction.setText(getString(R.string.USD)+String.valueOf(attraction));
-        this.hotel.setText(getString(R.string.USD)+String.valueOf(hotel));
+        this.restaurant.setText(getString(R.string.USD) + String.valueOf(restaurant));
+        this.total.setText(getString(R.string.USD) + String.valueOf(total));
+        this.others.setText(getString(R.string.USD) + String.valueOf(others));
+        this.transport.setText(getString(R.string.USD) + String.valueOf(transport));
+        this.attraction.setText(getString(R.string.USD) + String.valueOf(attraction));
+        this.hotel.setText(getString(R.string.USD) + String.valueOf(hotel));
     }
 
     @Subscribe

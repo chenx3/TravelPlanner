@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.data;
+package com.example.chenx2.triporganizer.data;
 
 import java.util.List;
 

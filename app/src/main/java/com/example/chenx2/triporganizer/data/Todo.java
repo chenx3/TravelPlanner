@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.data;
+package com.example.chenx2.triporganizer.data;
 
 public class Todo {
     public Todo(String todo, Boolean done) {

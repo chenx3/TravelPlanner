@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.data;
+package com.example.chenx2.triporganizer.data;
 
 import android.util.Log;
 
@@ -39,10 +39,6 @@ public class Trip extends SugarRecord implements Serializable {
         orderByTime();
         for(int i=0; i<plans.size(); i++) {
             plans.get(i).setFirst(checkWhetherFirstPlanInDay(i));
-        }
-        for(Plan plan: plans){
-            Log.d("DEBUG",plan.getStartTime().toString());
-            Log.d("DEBUG",String.valueOf(plan.isFirst()));
         }
         return plans;
     }

@@ -1,8 +1,6 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -15,26 +13,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.chenx2.travelplanner.AddPlanActivity;
-import com.example.chenx2.travelplanner.AddTripActivity;
-import com.example.chenx2.travelplanner.PlanDetail;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.TripDetail;
-import com.example.chenx2.travelplanner.Util;
-import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
-import com.example.chenx2.travelplanner.data.Plan;
+import com.example.chenx2.triporganizer.AddPlanActivity;
+import com.example.chenx2.triporganizer.AddTripActivity;
+import com.example.chenx2.triporganizer.PlanDetail;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.Util;
+import com.example.chenx2.triporganizer.adapter.PlanListAdapter;
+import com.example.chenx2.triporganizer.data.Plan;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 

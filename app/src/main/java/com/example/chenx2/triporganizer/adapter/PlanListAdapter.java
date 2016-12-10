@@ -1,28 +1,23 @@
-package com.example.chenx2.travelplanner.adapter;
+package com.example.chenx2.triporganizer.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
-import com.example.chenx2.travelplanner.AddPlanActivity;
-import com.example.chenx2.travelplanner.AddTripActivity;
-import com.example.chenx2.travelplanner.MessageEvent;
-import com.example.chenx2.travelplanner.PlanDetail;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.TripDetail;
-import com.example.chenx2.travelplanner.data.Plan;
-import com.example.chenx2.travelplanner.data.Trip;
+import com.example.chenx2.triporganizer.AddPlanActivity;
+import com.example.chenx2.triporganizer.MessageEvent;
+import com.example.chenx2.triporganizer.PlanDetail;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.TripDetail;
+import com.example.chenx2.triporganizer.data.Plan;
+import com.example.chenx2.triporganizer.data.Trip;
 
 import org.greenrobot.eventbus.EventBus;
 

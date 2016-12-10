@@ -1,16 +1,13 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.chenx2.travelplanner.adapter.TripListAdapter;
-import com.example.chenx2.travelplanner.data.Trip;
+import com.example.chenx2.triporganizer.adapter.TripListAdapter;
+import com.example.chenx2.triporganizer.data.Trip;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

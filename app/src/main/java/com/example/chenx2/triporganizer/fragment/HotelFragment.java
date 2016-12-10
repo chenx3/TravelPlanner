@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,27 +15,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.chenx2.travelplanner.AddPlanActivity;
-import com.example.chenx2.travelplanner.AddTripActivity;
-import com.example.chenx2.travelplanner.MessageEvent;
-import com.example.chenx2.travelplanner.PlanDetail;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.Util;
-import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
-import com.example.chenx2.travelplanner.data.Plan;
+import com.example.chenx2.triporganizer.AddPlanActivity;
+import com.example.chenx2.triporganizer.AddTripActivity;
+import com.example.chenx2.triporganizer.PlanDetail;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.Util;
+import com.example.chenx2.triporganizer.adapter.PlanListAdapter;
+import com.example.chenx2.triporganizer.data.Plan;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
-import com.nightonke.boommenu.Eases.Linear;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 

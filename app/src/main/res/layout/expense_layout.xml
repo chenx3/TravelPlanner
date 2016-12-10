@@ -1,133 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/expense_scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/material_view_pager_placeholder"/>
-    <RelativeLayout
-        android:background="?android:colorBackground"
-        android:padding="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-        <TextView
-            android:textStyle="bold"
-            android:layout_alignParentLeft="true"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Expense: " />
-        <TextView
-            android:id="@+id/total_expense"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$200" />
-    </RelativeLayout>
-    <View
-        android:background="#c4c4c4"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:padding="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-        <TextView
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Transport: " />
-        <TextView
-            android:id="@+id/view_transport_expense"
-            android:layout_alignParentRight="true"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$200" />
-    </RelativeLayout>
+        <include layout="@layout/material_view_pager_placeholder" />
 
-    <RelativeLayout
-        android:padding="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-        <TextView
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hotel:" />
-        <TextView
-            android:id="@+id/view_hotel_expense"
+            android:background="?android:colorBackground"
+            android:orientation="horizontal"
+            android:padding="20dp">
 
-            android:layout_alignParentRight="true"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$200" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:padding="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-        <TextView
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Attraction:" />
-        <TextView
-            android:id="@+id/view_attraction_expense"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Total Expense: "
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            android:layout_alignParentRight="true"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/total_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$200"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c4c4c4" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$200" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:padding="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-        <TextView
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transport: "
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/view_transport_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$200"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Restaurant:" />
-        <TextView
-            android:layout_alignParentRight="true"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hotel:"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/view_hotel_expense"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$200"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$200"
-            android:id="@+id/view_restaurant_expense" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:padding="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-        <TextView
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attraction:"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/view_attraction_expense"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$200"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Others:" />
-        <TextView
-            android:layout_alignParentRight="true"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Restaurant:"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/view_restaurant_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$200"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$200"
-            android:id="@+id/view_others_expense" />
-    </RelativeLayout>
-</LinearLayout>
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others:"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/view_others_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$200"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

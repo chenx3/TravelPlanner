@@ -1,12 +1,8 @@
-package com.example.chenx2.travelplanner.data;
+package com.example.chenx2.triporganizer.data;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.orm.SugarRecord;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Date;
 
 

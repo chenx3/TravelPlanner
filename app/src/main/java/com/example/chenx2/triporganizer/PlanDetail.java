@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.chenx2.travelplanner.data.Plan;
-
-import org.w3c.dom.Text;
+import com.example.chenx2.triporganizer.data.Plan;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -92,10 +90,14 @@ public class PlanDetail extends AppCompatActivity {
             public void onClick(View v) {
                 String longitude = String.valueOf(plan.getLongitude());
                 String latitude = String.valueOf(plan.getLatitude());
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+latitude+","+longitude));
-                i.setClassName("com.google.android.apps.maps",
-                        "com.google.android.maps.MapsActivity");
-                startActivity(i);
+                String label = plan.getName();
+                String uriBegin = "geo:" + latitude + "," + longitude;
+                String query = latitude + "," + longitude + "(" + label + ")";
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
     }

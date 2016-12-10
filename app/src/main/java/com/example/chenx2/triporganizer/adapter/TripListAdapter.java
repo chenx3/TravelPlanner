@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.adapter;
+package com.example.chenx2.triporganizer.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,17 +11,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
-import com.example.chenx2.travelplanner.AddTripActivity;
-import com.example.chenx2.travelplanner.MainActivity;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.TripDetail;
+import com.example.chenx2.triporganizer.AddTripActivity;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.TripDetail;
 
-import com.example.chenx2.travelplanner.data.Plan;
-import com.example.chenx2.travelplanner.data.Trip;
-import com.nightonke.boommenu.Eases.Linear;
+import com.example.chenx2.triporganizer.data.Plan;
+import com.example.chenx2.triporganizer.data.Trip;
 
 
 import java.util.List;
@@ -148,6 +145,9 @@ public class TripListAdapter extends RecyclerView.Adapter<TripListAdapter.ViewHo
     }
 
     public void delete(int position) {
+        for(Plan plan: trips.get(position).getPlans()){
+            plan.delete();
+        }
         trips.get(position).delete();
         trips.remove(position);
         notifyItemRemoved(position);

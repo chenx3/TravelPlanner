@@ -52,4 +52,5 @@ dependencies {
     }
     compile 'com.yalantis:contextmenu:1.0.7'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.github.ksoichiro:android-observablescrollview'
 }

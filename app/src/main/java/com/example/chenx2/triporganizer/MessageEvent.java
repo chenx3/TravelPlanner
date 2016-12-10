@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 public class MessageEvent {
 

@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.chenx2.travelplanner.adapter.TripListAdapter;
-import com.example.chenx2.travelplanner.data.Trip;
-
-
+import com.example.chenx2.triporganizer.adapter.TripListAdapter;
+import com.example.chenx2.triporganizer.data.Trip;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -123,11 +120,20 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_trips) {
 
         } else if (id == R.id.nav_share) {
-
+            intentShare(getString(R.string.share));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void intentShare(String text) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+        startActivity(Intent.createChooser(sharingIntent, "Select share app"));
+    }
+
+
 }

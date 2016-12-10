@@ -1,20 +1,20 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.chenx2.travelplanner.MessageEvent;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.TripDetail;
-import com.example.chenx2.travelplanner.data.Plan;
-import com.example.chenx2.travelplanner.data.Trip;
+import com.example.chenx2.triporganizer.MessageEvent;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.TripDetail;
+import com.example.chenx2.triporganizer.data.Plan;
+import com.example.chenx2.triporganizer.data.Trip;
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -35,7 +35,7 @@ public class MapFragment extends Fragment {
     MapView mapView;
     GoogleMap map;
     List<Plan> plans;
-
+    private ObservableScrollView mScrollView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +43,13 @@ public class MapFragment extends Fragment {
         plans = Trip.findById(Trip.class, ((TripDetail) getActivity()).id).getPlans();
         setMapView(savedInstanceState, root);
         return root;
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
+
+        MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
     }
 
     private void setMapView(@Nullable Bundle savedInstanceState, View root) {
@@ -85,7 +92,9 @@ public class MapFragment extends Fragment {
 
     public LatLng getCoordinate(Plan plan) {
         if (plan.getType().compareTo("Restaurant") == 0 || plan.getType().compareTo("Attraction") == 0 || plan.getType().compareTo("Others") == 0 || plan.getType().compareTo("Hotel") == 0) {
-            return new LatLng( plan.getLatitude(),plan.getLongitude());
+            if (plan.getLatitude() != 0.0) {
+                return new LatLng(plan.getLatitude(), plan.getLongitude());
+            }
         }
         return null;
     }

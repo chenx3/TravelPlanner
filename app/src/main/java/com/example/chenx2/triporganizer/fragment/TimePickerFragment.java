@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -6,11 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.TimePicker;
 
-import com.example.chenx2.travelplanner.OnMessageFragmentAnswer;
-import com.example.chenx2.travelplanner.R;
+import com.example.chenx2.triporganizer.OnMessageFragmentAnswer;
+import com.example.chenx2.triporganizer.R;
 
 import java.util.Calendar;
 

@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 
 import android.content.Intent;
@@ -17,10 +17,10 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.example.chenx2.travelplanner.data.Trip;
-import com.example.chenx2.travelplanner.fragment.ExpenseFragment;
-import com.example.chenx2.travelplanner.fragment.MapFragment;
-import com.example.chenx2.travelplanner.fragment.TripDetailFragment;
+import com.example.chenx2.triporganizer.data.Trip;
+import com.example.chenx2.triporganizer.fragment.ExpenseFragment;
+import com.example.chenx2.triporganizer.fragment.MapFragment;
+import com.example.chenx2.triporganizer.fragment.TripDetailFragment;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 

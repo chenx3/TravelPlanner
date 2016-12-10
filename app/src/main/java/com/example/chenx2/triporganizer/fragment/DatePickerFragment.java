@@ -1,16 +1,14 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.widget.DatePicker;
 
-import com.example.chenx2.travelplanner.OnMessageFragmentAnswer;
-import com.example.chenx2.travelplanner.R;
+import com.example.chenx2.triporganizer.OnMessageFragmentAnswer;
+import com.example.chenx2.triporganizer.R;
 
 import java.util.Calendar;
 

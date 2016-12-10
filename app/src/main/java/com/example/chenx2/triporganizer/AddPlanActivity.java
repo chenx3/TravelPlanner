@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner;
+package com.example.chenx2.triporganizer;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
-import com.example.chenx2.travelplanner.data.Plan;
-import com.example.chenx2.travelplanner.data.Trip;
-import com.example.chenx2.travelplanner.fragment.AttractionFragment;
-import com.example.chenx2.travelplanner.fragment.HotelFragment;
+import com.example.chenx2.triporganizer.adapter.PlanListAdapter;
+import com.example.chenx2.triporganizer.data.Plan;
+import com.example.chenx2.triporganizer.data.Trip;
+import com.example.chenx2.triporganizer.fragment.AttractionFragment;
+import com.example.chenx2.triporganizer.fragment.HotelFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;

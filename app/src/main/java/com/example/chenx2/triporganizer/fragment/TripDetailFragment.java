@@ -1,4 +1,4 @@
-package com.example.chenx2.travelplanner.fragment;
+package com.example.chenx2.triporganizer.fragment;
 
 
 import android.content.Intent;
@@ -10,22 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.chenx2.travelplanner.AddPlanActivity;
-import com.example.chenx2.travelplanner.AddTripActivity;
-import com.example.chenx2.travelplanner.MessageEvent;
-import com.example.chenx2.travelplanner.OnResultInterface;
-import com.example.chenx2.travelplanner.R;
-import com.example.chenx2.travelplanner.TripDetail;
-import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
-import com.example.chenx2.travelplanner.data.Plan;
-import com.example.chenx2.travelplanner.data.Trip;
+import com.example.chenx2.triporganizer.AddTripActivity;
+import com.example.chenx2.triporganizer.OnResultInterface;
+import com.example.chenx2.triporganizer.R;
+import com.example.chenx2.triporganizer.TripDetail;
+import com.example.chenx2.triporganizer.adapter.PlanListAdapter;
+import com.example.chenx2.triporganizer.data.Plan;
+import com.example.chenx2.triporganizer.data.Trip;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
-import com.nightonke.boommenu.BoomMenuButton;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class TripDetailFragment extends Fragment implements OnResultInterface{
     public static final String TAG = "TripDetailFragment";
@@ -59,7 +52,6 @@ public class TripDetailFragment extends Fragment implements OnResultInterface{
                 Plan newItem = (Plan) data.getSerializableExtra(
                         AddTripActivity.KEY_ITEM);
                 mAdapter.addItem(newItem);
-                mRecyclerView.scrollToPosition(0);
             } else if (requestCode == PlanListAdapter.REQUEST_CODE_EDIT_PLAN) {
                 Plan newItem = (Plan) data.getSerializableExtra(
                         AddTripActivity.KEY_ITEM);
