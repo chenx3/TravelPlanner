@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.chenx2.travelplanner.adapter.TripListAdapter;
-import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
 
 
@@ -67,12 +66,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startAddCityActivity();
+                startAddTripActivity();
             }
         });
     }
 
-    private void startAddCityActivity() {
+    private void startAddTripActivity() {
         Intent intentShowAdd = new Intent();
         intentShowAdd.setClass(MainActivity.this, AddTripActivity.class);
         startActivityForResult(intentShowAdd, REQUEST_CODE_ADD);
@@ -86,11 +85,11 @@ public class MainActivity extends AppCompatActivity
                         AddTripActivity.KEY_ITEM);
                 mAdapter.addItem(trip);
                 mRecyclerView.scrollToPosition(0);
-            }else if(requestCode == TripListAdapter.REQUEST_CODE_EDIT){
+            } else if (requestCode == TripListAdapter.REQUEST_CODE_EDIT) {
                 Trip trip = (Trip) data.getSerializableExtra(
                         AddTripActivity.KEY_ITEM);
-                int position = data.getIntExtra(AddTripActivity.POSITION,0);
-                mAdapter.edit(trip.getTitle(),position);
+                int position = data.getIntExtra(AddTripActivity.POSITION, 0);
+                mAdapter.edit(trip.getTitle(), position);
             }
         }
 
@@ -114,20 +113,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -135,17 +120,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_trips) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

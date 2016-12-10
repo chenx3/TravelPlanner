@@ -1,5 +1,7 @@
 package com.example.chenx2.travelplanner;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,44 +52,75 @@ public class PlanDetail extends AppCompatActivity {
             setUpTimeLayout();
         } else if (plan.getType().compareTo("Train") == 0 || plan.getType().compareTo("Flight") == 0 || plan.getType().compareTo("Transport") == 0) {
             setUpTimeLayout();
-            TextView arrival_text = (TextView) findViewById(R.id.arrival_text);
-            TextView departure_text = (TextView) findViewById(R.id.departure_text);
-            if (plan.getStartLocation() == null || plan.getStartLocation().compareTo("") == 0) {
-                departure_text.setText("Departure Point");
-            } else {
-                departure_text.setText(plan.getStartLocation());
-            }
-            if (plan.getEndLocation() == null || plan.getEndLocation().compareTo("") == 0) {
-                arrival_text.setText("Arrival Point");
-            } else {
-                arrival_text.setText(plan.getEndLocation());
-            }
+            setupAddress();
             address_container.setVisibility(View.GONE);
 
         }
+        setupTime();
+
+        setupHotelAddress();
+
+        setupExpense();
+
+        setupNotes();
+    }
+
+    private void setupNotes() {
+        if (plan.getNotes() != null && plan.getNotes().compareTo("") != 0) {
+            plan_note.setText(plan.getNotes());
+        } else {
+            note_container.setVisibility(View.GONE);
+        }
+    }
+
+    private void setupExpense() {
+        if (plan.getExpenses() != 0.0) {
+            plan_expense.setText(String.valueOf(plan.getExpenses()));
+        } else {
+            expense_container.setVisibility(View.GONE);
+        }
+    }
+
+    private void setupHotelAddress() {
+        if (plan.getAddress() != null) {
+            plan_address.setText(plan.getAddress());
+        } else {
+            address_container.setVisibility(View.GONE);
+        }
+        address_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String longitude = String.valueOf(plan.getLongitude());
+                String latitude = String.valueOf(plan.getLatitude());
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+latitude+","+longitude));
+                i.setClassName("com.google.android.apps.maps",
+                        "com.google.android.maps.MapsActivity");
+                startActivity(i);
+            }
+        });
+    }
+
+    private void setupTime() {
         if (plan.getStartTime() != null) {
             plan.getStartTime().setMonth(plan.getStartTime().getMonth());
             plan_time.setText(new SimpleDateFormat("MM/dd/yyyy HH:mm").format(plan.getStartTime()));
         } else {
             time_container.setVisibility(View.GONE);
         }
+    }
 
-        if (plan.getAddress() != null) {
-            plan_address.setText(plan.getAddress());
+    private void setupAddress() {
+        TextView arrival_text = (TextView) findViewById(R.id.arrival_text);
+        TextView departure_text = (TextView) findViewById(R.id.departure_text);
+        if (plan.getStartLocation() == null || plan.getStartLocation().compareTo("") == 0) {
+            departure_text.setText("Departure Point");
         } else {
-            address_container.setVisibility(View.GONE);
+            departure_text.setText(plan.getStartLocation());
         }
-
-        if (plan.getExpenses() != 0.0) {
-            plan_expense.setText(String.valueOf(plan.getExpenses()));
+        if (plan.getEndLocation() == null || plan.getEndLocation().compareTo("") == 0) {
+            arrival_text.setText("Arrival Point");
         } else {
-            expense_container.setVisibility(View.GONE);
-        }
-
-        if (plan.getNotes() != null && plan.getNotes().compareTo("") != 0) {
-            plan_note.setText(plan.getNotes());
-        } else {
-            note_container.setVisibility(View.GONE);
+            arrival_text.setText(plan.getEndLocation());
         }
     }
 

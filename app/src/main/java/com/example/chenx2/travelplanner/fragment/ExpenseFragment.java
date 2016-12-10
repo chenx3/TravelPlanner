@@ -1,5 +1,6 @@
 package com.example.chenx2.travelplanner.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.chenx2.travelplanner.MessageEvent;
 import com.example.chenx2.travelplanner.R;
 import com.example.chenx2.travelplanner.TripDetail;
 import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -60,11 +66,29 @@ public class ExpenseFragment extends Fragment {
                 transport += plan.getExpenses();
             }
         }
-        this.restaurant.setText(String.valueOf(restaurant));
-        this.total.setText(String.valueOf(total));
-        this.others.setText(String.valueOf(others));
-        this.transport.setText(String.valueOf(transport));
-        this.attraction.setText(String.valueOf(attraction));
-        this.hotel.setText(String.valueOf(hotel));
+        this.restaurant.setText(getString(R.string.USD)+String.valueOf(restaurant));
+        this.total.setText(getString(R.string.USD)+String.valueOf(total));
+        this.others.setText(getString(R.string.USD)+String.valueOf(others));
+        this.transport.setText(getString(R.string.USD)+String.valueOf(transport));
+        this.attraction.setText(getString(R.string.USD)+String.valueOf(attraction));
+        this.hotel.setText(getString(R.string.USD)+String.valueOf(hotel));
+    }
+
+    @Subscribe
+    public void onMessageEvent(MessageEvent event) {
+        plans = Trip.findById(Trip.class, ((TripDetail) getActivity()).id).getPlans();
+        setupExpense();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        EventBus.getDefault().unregister(this);
+        super.onDetach();
     }
 }

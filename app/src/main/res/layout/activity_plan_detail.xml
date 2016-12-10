@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:padding="16dp"
-        android:text="Hongkong Disneyland"
+        android:text="@string/tbd"
         android:textSize="20dp" />
 
     <View
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Dec 2, 2015 GMT+8 10:00 - 20:00" />
+                android:text="@string/dec_2_2015_gmt_8_10_00_20_00" />
         </LinearLayout>
 
         <View
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="This is the address" />
+                android:text="@string/this_is_the_address" />
         </LinearLayout>
 
         <View
@@ -115,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="This is a note" />
+                android:text="@string/this_is_a_note" />
         </LinearLayout>
 
         <View
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="This is expense" />
+                android:text="@string/this_is_expense" />
         </LinearLayout>
 
         <View

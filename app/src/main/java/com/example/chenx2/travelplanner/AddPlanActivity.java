@@ -6,10 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
-import com.example.chenx2.travelplanner.adapter.TripListAdapter;
 import com.example.chenx2.travelplanner.data.Plan;
 import com.example.chenx2.travelplanner.data.Trip;
 import com.example.chenx2.travelplanner.fragment.AttractionFragment;
@@ -18,10 +16,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 
-import org.greenrobot.eventbus.EventBus;
 
-
-public class AddPlanActivity extends AppCompatActivity implements OnMessageFragmentAnswer ,GoogleApiClient.OnConnectionFailedListener {
+public class AddPlanActivity extends AppCompatActivity implements OnMessageFragmentAnswer, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
     public static final int EDIT = 0;
     public static final int CREATE = 1;
@@ -33,6 +29,7 @@ public class AddPlanActivity extends AppCompatActivity implements OnMessageFragm
     public int intent;
     public int position;
     public long id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

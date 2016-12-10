@@ -5,4 +5,22 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_none_empty">Title cannot be empty</string>
+    <string name="departure_point">Departure Point</string>
+    <string name="arrival_point">Arrival Point</string>
+    <string name="date_format">MM/dd/yyyy HH:mm</string>
+    <string name="empty" />
+    <string name="plans">Plans</string>
+    <string name="map">Map</string>
+    <string name="expense">Expense</string>
+    <string name="interface_not_implemented">Not implement interface</string>
+    <string name="not_implement_interfaces">Not implement interface</string>
+    <string name="arrival">Arrival Point</string>
+    <string name="departure">Departure Point</string>
+    <string name="tbd">TBD</string>
+    <string name="dec_2_2015_gmt_8_10_00_20_00">Dec 2, 2015 GMT+8 10:00 - 20:00</string>
+    <string name="this_is_the_address">This is the address</string>
+    <string name="this_is_a_note">This is a note</string>
+    <string name="this_is_expense">This is expense</string>
+    <string name="USD">"USD "</string>
 </resources>

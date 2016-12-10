@@ -62,8 +62,8 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.ViewHo
         final int index = holder.getAdapterPosition();
         if (plans.get(holder.getAdapterPosition()).getType().compareTo("Transport") == 0 || plans.get(holder.getAdapterPosition()).getType().compareTo("Flight") == 0 || plans.get(holder.getAdapterPosition()).getType().compareTo("Train") == 0) {
             if (plans.get(holder.getAdapterPosition()).getStartLocation() == null || plans.get(holder.getAdapterPosition()).getStartLocation().compareTo("") == 0) {
-                holder.tvEndLocation.setText("Arrival Point");
-                holder.tvStartLocation.setText("Departure Point");
+                holder.tvEndLocation.setText(R.string.arrival);
+                holder.tvStartLocation.setText(R.string.departure);
             } else {
                 holder.tvEndLocation.setText(plans.get(holder.getAdapterPosition()).getEndLocation());
                 holder.tvStartLocation.setText(plans.get(holder.getAdapterPosition()).getStartLocation());

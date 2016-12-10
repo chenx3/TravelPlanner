@@ -53,7 +53,7 @@ public class AddTripActivity extends Activity {
             setResult(RESULT_OK, result);
             finish();
         }else{
-            trip_to_add.setError("Title cannot be empty");
+            trip_to_add.setError(getString(R.string.title_none_empty));
         }
     }
 

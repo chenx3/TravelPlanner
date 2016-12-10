@@ -1,5 +1,6 @@
 package com.example.chenx2.travelplanner.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -94,21 +95,19 @@ public class MapFragment extends Fragment {
         map.clear();
         plans = Trip.findById(Trip.class, ((TripDetail) getActivity()).id).getPlans();
         setupMarker();
-        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
     }
 
-
-
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onAttach(Context context) {
+        super.onAttach(context);
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onDetach() {
         EventBus.getDefault().unregister(this);
-        super.onStop();
+        super.onDetach();
     }
+
 
 }

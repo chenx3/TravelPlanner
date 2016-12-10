@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.DatePicker;
 
 import com.example.chenx2.travelplanner.OnMessageFragmentAnswer;
+import com.example.chenx2.travelplanner.R;
 
 import java.util.Calendar;
 
@@ -23,7 +24,7 @@ public  class DatePickerFragment extends DialogFragment
         if(context instanceof  OnMessageFragmentAnswer){
             onMessageFragmentAnswer = (OnMessageFragmentAnswer)context;
         }else{
-            throw new RuntimeException("Not implement interface");
+            throw new RuntimeException(context.getString(R.string.interface_not_implemented));
         }
     }
     @Override

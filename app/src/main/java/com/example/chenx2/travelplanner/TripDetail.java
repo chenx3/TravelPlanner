@@ -1,60 +1,38 @@
 package com.example.chenx2.travelplanner;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.ClipData;
+
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebViewFragment;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.emmano.blurstickyheaderlistviewlib.fragment.BlurListFragment;
-import com.example.chenx2.travelplanner.adapter.PlanListAdapter;
-import com.example.chenx2.travelplanner.adapter.TripListAdapter;
-import com.example.chenx2.travelplanner.data.Plan;
+import android.widget.TextView;
+
+
 import com.example.chenx2.travelplanner.data.Trip;
 import com.example.chenx2.travelplanner.fragment.ExpenseFragment;
 import com.example.chenx2.travelplanner.fragment.MapFragment;
 import com.example.chenx2.travelplanner.fragment.TripDetailFragment;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
+
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TripDetail extends AppCompatActivity implements OnMenuItemClickListener {
@@ -84,7 +62,7 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
         toolbar = mViewPager.getToolbar();
         Menu menu = toolbar.getMenu();
         getMenuInflater().inflate(R.menu.trip_detail, menu);
-        toolbar.setTitle("");
+        toolbar.setTitle(getString(R.string.empty));
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
@@ -115,13 +93,13 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
             public CharSequence getPageTitle(int position) {
                 switch (position % 3) {
                     case 0:
-                        return "Plans";
+                        return getString(R.string.plans);
                     case 1:
-                        return "Map";
+                        return getString(R.string.map);
                     case 2:
-                        return "Expense";
+                        return getString(R.string.expense);
                 }
-                return "";
+                return getString(R.string.empty);
             }
         });
 
@@ -187,6 +165,7 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
         menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.tool_bar_height));
         menuParams.setMenuObjects(menuObjects);
         menuParams.setClosableOutside(true);
+        menuParams.setAnimationDuration(50);
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
         mMenuDialogFragment.setItemClickListener(this);
     }
@@ -203,6 +182,8 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
             case R.id.action_add:
                 mMenuDialogFragment.show(getSupportFragmentManager(), "ContextMenuDialogFragment");
                 break;
+            case android.R.id.home:
+                finish();
             default:
                 break;
         }
@@ -238,7 +219,7 @@ public class TripDetail extends AppCompatActivity implements OnMenuItemClickList
         Intent intentShowAdd = new Intent();
         intentShowAdd.setClass(this, AddPlanActivity.class);
         intentShowAdd.putExtra(TRIP, this.trip);
-        intentShowAdd.putExtra(TRIP_ID,trip.getId());
+        intentShowAdd.putExtra(TRIP_ID, trip.getId());
         intentShowAdd.putExtra(TYPE, type);
         currentFragment.startActivityForResult(intentShowAdd, REQUEST_CODE_ADD);
     }
